@@ -30,11 +30,18 @@ console.log('example task:', processFirstItem(['foo','bar'],function(str){return
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
+
+  Counter1 uses closure functions, counter2 does not. When ran multiple times, counter1 will save and increment the value
+  of count, whereas counter2 will not.
   
   2. Which of the two uses a closure? How can you tell?
+   Counter1 uses a closure because it returns a function within a function.
   
   3. In what scenario would the counter1 code be preferable? In what scenario would 
      counter2 be better?  
+
+     Counter1 would be preferable in a scenario where I want to change and then save the value of a variable multiple times. 
+     Counter2 would be preferable if I want the same result each time the function is ran.
 */
 
 // counter1 code
@@ -46,7 +53,9 @@ function counterMaker() {
 }
 
 const counter1 = counterMaker();
-
+console.log( counter1())
+console.log( counter1())
+console.log( counter1())
 // counter2 code
 let count = 0;
 
@@ -64,9 +73,30 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-function inning(/*Code Here*/){
-    /*Code Here*/
+function inning(){
+    // let score = 0
+    // return function (){
+    //   score += Math.floor(Math.random() * Math.floor(3))
+    //   return score
+    // }
+
+    return  Math.floor(Math.random() * Math.floor(3))
+   
 }
+
+// let newScore = inning()
+// console.log('new score',newScore())
+// console.log('new score',newScore())
+// console.log('new score',newScore())
+// console.log('new score',newScore())
+// console.log('new score',newScore())
+// console.log('new score',newScore())
+
+console.log(inning())
+console.log(inning())
+console.log(inning())
+
+
 
 
 /* ⚾️⚾️⚾️ Task 3: finalScore() ⚾️⚾️⚾️
@@ -83,9 +113,21 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(/*Code Here*/){
-  /*Code Here*/
+function finalScore(inningCB, innings){
+  let homeScore = 0;
+  let awayScore = 0;
+  for (let i = 0; i < innings; i++){
+    homeScore = homeScore + inningCB();
+    awayScore = awayScore + inningCB();
+
+  }
+  return {
+    Home : homeScore,
+    Away: awayScore
+  }
 }
+
+console.log(finalScore(inning,9))
 
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
@@ -101,10 +143,20 @@ For example: invoking getInningScore(inning) might return this object:
   */
 
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
+function getInningScore(inningCB) {
+  let homeScore = 0;
+  let awayScore = 0;
+  homeScore += inningCB()
+  awayScore += inningCB()
+  return {
+    "Home": homeScore,
+    "Away": awayScore
+
+  }
 
 }
+
+console.log(getInningScore(inning))
 
 
 /* STRETCH: ⚾️⚾️⚾️ Task 5: scoreboard() ⚾️⚾️⚾️
